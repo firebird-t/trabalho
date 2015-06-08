@@ -1,0 +1,80 @@
+<html>
+<head>
+</head>
+<script>
+
+    function loadpage(){
+//Canvas
+        var canvas = document.getElementById("dcanvas");
+        var context = canvas.getContext("2d");
+
+        var largura = canvas.width;
+        var altura = canvas.height;
+
+//Controle Tamanho;
+        crt_tmh = 20;
+
+//Cores e bordas do Canvas
+
+        context.fillStyle="white";
+        context.fillRect(0,0,largura,altura);
+        context.strokeStyle = "black";
+        context.strokeRect(0,0,largura,altura);
+
+
+    //Vetor que contem o worm
+
+    var snake_tamanho;
+
+    
+
+    function worms(){
+        var tamanho =5;//tamanho do worm
+        snake_tamanho = [];
+
+        for(var i=tamanho-1;i>=0;i--)
+        {
+           console.log(snake_tamanho.push({x:i,y:0}));
+        }
+    }
+
+    worms();
+
+    function desenha(){
+
+        //Movimento do Worm 1
+        var pos_x = snake_tamanho[0].x;
+        var pos_y = snake_tamanho[0].y;
+
+        //Movimento o indice 0 do vetor
+
+        pos_x++;
+
+        //remove o ultimo item do array e adiciona a uma variavel
+        var cauda = snake_tamanho.pop();
+
+        //
+        cauda.x = pos_x;
+        snake_tamanho.unshift(cauda);
+
+        for(var i=0;i<snake_tamanho.length;i++){
+
+            var cont = snake_tamanho[i];
+            context.fillStyle = "blue";
+            context.fillRect(cont.x*crt_tmh,cont.y*crt_tmh,crt_tmh,crt_tmh);
+            context.strokeStyle = "white";
+            context.strokeRect(cont.x*crt_tmh,cont.y*crt_tmh,crt_tmh,crt_tmh);
+        }
+    }
+
+
+
+    //Mover o worm usando um timer
+    worm_loop = setInterval(desenha(),60);
+
+    }
+</script>
+<body onload="loadpage()">
+<canvas id="dcanvas" width="400" height="400"></canvas>
+</body>
+</html>
